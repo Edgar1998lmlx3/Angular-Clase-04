@@ -1,4 +1,6 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
+import { ContriesService } from '../../services/contries.service';
+import { Contry } from '../../interfaces/contry';
 
 @Component({
   selector: 'countries-pages-by-capital-page',
@@ -7,10 +9,14 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 })
 export class ByCapitalPageComponent {
 
+  public countries: Contry[] = [];
+
+  constructor(private countriesService:ContriesService){}
 
 
   searchByCapital(term:string):void{
-    console.log('desde ByCapitalPage')
-    console.log({term});
+    this.countriesService.searchByCapital(term).subscribe( coun =>{
+      this.countries = coun;
+    })
   }
 }
